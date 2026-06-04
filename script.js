@@ -194,9 +194,9 @@ function triggerCombatFX(attackerToken) {
     playKillSound(isTigerAttacking);
 
     switch (attackerToken) {
-        case 'P': strikeText = "🐾 MEeeeOW KILL! 🐾"; textStyleClass = "text-cat"; break;
+        case 'P': strikeText = "🐾 MEOW KILL! 🐾"; textStyleClass = "text-cat"; break;
         case 'N': strikeText = "✨ MYSTICAL STRIKE! ✨"; textStyleClass = "text-unicorn"; break;
-        case 'B': strikeText = "🦁 Cunning Chuut! 🦁"; textStyleClass = "text-lion"; break;
+        case 'B': strikeText = "🦁 Cunning Cut! 🦁"; textStyleClass = "text-lion"; break;
         case 'R': strikeText = "🐯 Rooring Bullll 🐯"; textStyleClass = "text-tiger"; scratchMarks.classList.add('slash-active'); break;
         case 'Q': strikeText = "🦊 SLY DECEPTION! 🦊"; textStyleClass = "text-fox"; break;
         case 'K': strikeText = "👑 ROYAL EXECUTION! 👑"; textStyleClass = "text-king"; break;
