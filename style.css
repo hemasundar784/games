@@ -27,24 +27,27 @@ h2 { margin: 0 0 20px 0; font-weight: 400; }
 
 #chessboard {
     display: grid;
-    grid-template-columns: repeat(8, 75px);
-    grid-template-rows: repeat(8, 75px);
+    /* 🟢 Scale based on viewport size: fits beautifully on both portrait & landscape screens */
+    grid-template-columns: repeat(8, min(11vw, 11vh, 75px));
+    grid-template-rows: repeat(8, min(11vw, 11vh, 75px));
+    
     border: 6px solid #4a3b32;
     border-radius: 8px;
     box-shadow: 0 15px 35px rgba(0,0,0,0.6);
-    position: relative;
+    margin: 0 auto;
+    max-width: 100%;
 }
 
 .square {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 45px;
+    /* 🟢 Font sizes adjust naturally with the shrinking cat grid squares */
+    font-size: min(6.5vw, 6.5vh, 45px); 
     cursor: pointer;
     user-select: none;
     position: relative;
 }
-
 .light { background-color: #fcecd6; }
 .dark { background-color: #a87c63; }
 .selected { background-color: #ffb066 !important; }
@@ -88,10 +91,12 @@ h2 { margin: 0 0 20px 0; font-weight: 400; }
     background-color: rgba(44, 37, 35, 0.5); 
     
     border: 1px solid rgba(255, 176, 102, 0.3);
-    padding: 4px 10px;
+    /* padding: 4px 10px; */
     border-radius: 6px;
     white-space: nowrap;
-    font-size: 13px;
+    /* font-size: 13px; */
+    font-size: min(2.5vw, 13px);
+    padding: 2px 6px;
     z-index: 100;
     pointer-events: none;
     backdrop-filter: blur(4px);
