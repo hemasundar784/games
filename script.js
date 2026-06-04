@@ -197,13 +197,13 @@ function triggerCombatFX(attackerToken) {
         case 'P': strikeText = "🐾 MEOW KILL! 🐾"; textStyleClass = "text-cat"; break;
         case 'N': strikeText = "✨ MYSTICAL STRIKE! ✨"; textStyleClass = "text-unicorn"; break;
         case 'B': strikeText = "🦁 ROARING SHRED! 🦁"; textStyleClass = "text-lion"; break;
-        case 'R': strikeText = "🐯 TIGER SCRATCH! 🐯"; textStyleClass = "text-tiger"; scratchMarks.classList.add('slash-active'); break;
+        case 'R': strikeText = "🐯 Rooring Bullll 🐯"; textStyleClass = "text-tiger"; scratchMarks.classList.add('slash-active'); break;
         case 'Q': strikeText = "🦊 SLY DECEPTION! 🦊"; textStyleClass = "text-fox"; break;
         case 'K': strikeText = "👑 ROYAL EXECUTION! 👑"; textStyleClass = "text-king"; break;
         case 'p': strikeText = "🐾 MEOW KILL! 🐾"; textStyleClass = "text-cat"; break;
         case 'n': strikeText = "🥷 TRICKSTER AMBUSH! 🥷"; textStyleClass = "text-bandit"; break;
         case 'b': strikeText = "🐾 SHADOW POUNCE! 🐾"; textStyleClass = "text-panther"; break;
-        case 'r': strikeText = "🐺 LUNAR Tunder KILL! 🐺"; textStyleClass = "text-wolf"; break;
+        case 'r': strikeText = "🐺 Thundhaaer KILL! 🐺"; textStyleClass = "text-wolf"; break;
         case 'q': strikeText = "🩸 BLOOD DRAIN CATNIP! 🩸"; textStyleClass = "text-vampire"; break;
         case 'k': strikeText = "🎩 TOTAL DOMINATION! 🎩"; textStyleClass = "text-overlord"; break;
     }
