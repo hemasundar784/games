@@ -1,0 +1,222 @@
+body {
+    background-color: #1e1918;
+    color: #f7ebe1;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+}
+
+.game-container {
+    text-align: center;
+    transition: transform 0.1s ease; /* Used for screen shaking */
+}
+
+h1 {
+    margin: 0 0 5px 0;
+    color: #ffb066;
+    font-size: 2.5rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+}
+
+h2 { margin: 0 0 20px 0; font-weight: 400; }
+#turn-display { font-weight: bold; color: #ffb066; }
+
+#chessboard {
+    display: grid;
+    grid-template-columns: repeat(8, 75px);
+    grid-template-rows: repeat(8, 75px);
+    border: 6px solid #4a3b32;
+    border-radius: 8px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+    position: relative;
+}
+
+.square {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 45px;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+}
+
+.light { background-color: #fcecd6; }
+.dark { background-color: #a87c63; }
+.selected { background-color: #ffb066 !important; }
+
+.highlight::after {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background-color: rgba(67, 160, 71, 0.6);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.path-trail {
+    background-color: rgba(255, 176, 102, 0.25) !important;
+    box-shadow: inset 0 0 12px rgba(255, 176, 102, 0.5);
+}
+
+/* Tooltip Mechanics */
+/* .square .tooltip {
+    visibility: hidden; opacity: 0; position: absolute; bottom: 85%; left: 50%;
+    transform: translateX(-50%); background-color: rgba(44, 37, 35, 0.5);
+    border: 1px solid rgba(255, 176, 102, 0.3); padding: 4px 10px; border-radius: 6px;
+    white-space: nowrap; font-size: 13px; font-weight: 300; z-index: 100; pointer-events: none;
+    backdrop-filter: blur(4px); transition: opacity 0.2s ease, visibility 0.2s ease;
+    background: linear-gradient(45deg, #ffb066, #ffebd6);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+} */
+
+/* --- 🛠️ FIXED TOOLTIP CONTAINERS --- */
+.square .tooltip {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    bottom: 85%;
+    left: 50%;
+    transform: translateX(-50%);
+    
+    /* 1. This handles the actual see-through background box */
+    background-color: rgba(44, 37, 35, 0.5); 
+    
+    border: 1px solid rgba(255, 176, 102, 0.3);
+    padding: 4px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+    font-size: 13px;
+    z-index: 100;
+    pointer-events: none;
+    backdrop-filter: blur(4px);
+    /* transition: opacity 0.2s ease, visibility 0.2s ease; */
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+
+    /* 2. Beautiful Light Font Weight */
+    font-weight: 600; 
+
+    /* 3. Strict Text Gradient Rules (No 'background' shorthand to prevent box overwrite) */
+    /* background-image: linear-gradient(45deg, #ffb066, #ffebd6); */
+    background-image: linear-gradient(45deg, #00ffff, #bd00ff);
+    
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: #ff7a66; /* Safe fallback color */
+}
+
+
+
+.square:hover .tooltip { visibility: visible; opacity: 1; }
+
+/* Wrapper to hold piece text cleanly */
+.square span:not(.tooltip) {
+    display: inline-block;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    position: relative;
+    z-index: 10;
+}
+
+/* --- 🐾 REAL LOOK MOVING/WALKING ANIMATION --- */
+.real-walking {
+    animation: realTrot 0.15s infinite alternate ease-in-out;
+}
+@keyframes realTrot {
+    0% { transform: translateY(0) rotate(-6deg); }
+    100% { transform: translateY(-6px) rotate(6deg); }
+}
+
+/* --- 💥 RED FAINTING DEATH ANIMATION --- */
+.fainting {
+    animation: catDeath 0.4s forwards ease-in;
+}
+@keyframes catDeath {
+    0% { transform: scale(1); filter: drop-shadow(0 0 5px red) saturate(3); }
+    100% { transform: scale(0) rotate(180deg); opacity: 0; }
+}
+
+/* --- 🌋 FULLSCREEN FX OVERLAY LAYER --- */
+.fx-overlay {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    pointer-events: none; z-index: 999; display: flex; justify-content: center;
+    align-items: center; transition: background-color 0.1s ease;
+}
+
+/* Danger vibe vignette backdrop flash */
+.danger-flash {
+    background-color: rgba(224, 32, 32, 0.35);
+    box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.9), inset 0 0 80px rgba(255, 0, 0, 0.6);
+}
+
+/* Arcade Strike Text styling */
+.arcade-text {
+    font-size: 5rem; font-weight: 900; font-style: italic; text-transform: uppercase;
+    transform: scale(0); opacity: 0; transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-shadow: 0 0 20px rgba(0,0,0,0.8), 4px 4px 0px #000;
+}
+.arcade-text.show {
+    transform: scale(1.1) rotate(-5deg); opacity: 1;
+}
+
+/* Color thematic splits for arcade text */
+.text-tiger { background: linear-gradient(to bottom, #ff7700, #ffcc00); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.text-cat { background: linear-gradient(to bottom, #ff0077, #ff88cc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+/* --- 🐯 TIGER CLAW SCRATCH GRAPHICS --- */
+.scratch-container {
+    position: absolute; width: 400px; height: 400px; opacity: 0; transform: scale(0.7);
+    display: flex; justify-content: space-between;
+}
+.scratch-container.slash-active {
+    opacity: 1; transform: scale(1); transition: all 0.1s ease;
+}
+.scratch {
+    width: 25px; height: 100%; background: linear-gradient(to bottom, transparent, #ff3700, #ffdd00, transparent);
+    border-radius: 50%; filter: blur(2px) drop-shadow(0 0 8px #ff4500);
+    transform: rotate(35deg); transform-origin: center;
+    opacity: 0;
+}
+.slash-active .scratch-1 { animation: slashDraw 0.2s 0.0s forwards; }
+.slash-active .scratch-2 { animation: slashDraw 0.2s 0.05s forwards; }
+.slash-active .scratch-3 { animation: slashDraw 0.2s 0.1s forwards; }
+
+@keyframes slashDraw {
+    0% { height: 0%; opacity: 0; transform: rotate(35deg) translateY(-100px); }
+    100% { height: 100%; opacity: 1; transform: rotate(35deg) translateY(0); }
+}
+
+/* Game Frame Screen Shake Hook */
+.shake {
+    animation: screenShake 0.3s linear infinite;
+}
+@keyframes screenShake {
+    0% { transform: translate(2px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(0px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(2px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(2px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+
+/* --- 🎨 ADVANCED ANIMAL COLOR GRADIENTS --- */
+.text-unicorn { background: linear-gradient(to bottom, #ff00ff, #00ffff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.text-bandit { background: linear-gradient(to bottom, #555555, #aaaaaa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.text-lion { background: linear-gradient(to bottom, #ffee55, #ff9900); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.text-panther { background: linear-gradient(to bottom, #3a007d, #9d4edd); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.text-wolf { background: linear-gradient(to bottom, #00b4d8, #90e0ef); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.text-fox { background: linear-gradient(to bottom, #ff4e00, #ec9f05); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.text-vampire { background: linear-gradient(to bottom, #7a0010, #ff002b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.text-king { background: linear-gradient(to bottom, #ffe066, #f5b041); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.text-overlord { background: linear-gradient(to bottom, #2b2d42, #8d99ae); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
