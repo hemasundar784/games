@@ -204,7 +204,7 @@ function triggerCombatFX(attackerToken) {
         case 'n': strikeText = "🥷 TRICKSTER AMBUSH! 🥷"; textStyleClass = "text-bandit"; break;
         case 'b': strikeText = "🐾 SHADOW POUNCE! 🐾"; textStyleClass = "text-panther"; break;
         case 'r': strikeText = "🐺 Thundhaaer KILL! 🐺"; textStyleClass = "text-wolf"; break;
-        case 'q': strikeText = "🩸 BLOOD DRAIN CATNIP! 🩸"; textStyleClass = "text-vampire"; break;
+        case 'q': strikeText = "🩸 Queen BLOOD DRAIN ! 🩸"; textStyleClass = "text-vampire"; break;
         case 'k': strikeText = "🎩 TOTAL DOMINATION! 🎩"; textStyleClass = "text-overlord"; break;
     }
 
