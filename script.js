@@ -203,7 +203,7 @@ function triggerCombatFX(attackerToken) {
         case 'p': strikeText = "🐾 MEOW KILL! 🐾"; textStyleClass = "text-cat"; break;
         case 'n': strikeText = "🥷 TRICKSTER AMBUSH! 🥷"; textStyleClass = "text-bandit"; break;
         case 'b': strikeText = "🐾 SHADOW POUNCE! 🐾"; textStyleClass = "text-panther"; break;
-        case 'r': strikeText = "🐺 LUNAR HOWL KILL! 🐺"; textStyleClass = "text-wolf"; break;
+        case 'r': strikeText = "🐺 LUNAR Tunder KILL! 🐺"; textStyleClass = "text-wolf"; break;
         case 'q': strikeText = "🩸 BLOOD DRAIN CATNIP! 🩸"; textStyleClass = "text-vampire"; break;
         case 'k': strikeText = "🎩 TOTAL DOMINATION! 🎩"; textStyleClass = "text-overlord"; break;
     }
